@@ -10,7 +10,7 @@ import org.mapstruct.Mapper;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = CourseMapper.class)
 public interface AssignmentMapper {
     Assignment toEntity(AssignmentRequest assignmentRequest);
 

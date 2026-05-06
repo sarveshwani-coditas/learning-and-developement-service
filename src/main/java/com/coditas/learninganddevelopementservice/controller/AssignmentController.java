@@ -26,7 +26,7 @@ public class AssignmentController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @GetMapping("")
+    @GetMapping("employees/{empId}/courses/{courseId}/assignments")
     public ResponseEntity<AssignmentResponse> getAssignment(@PathVariable long empId, @PathVariable long courseId){
         AssignmentResponse response = assignmentService.getAssignment(empId, courseId);
         return ResponseEntity.status(HttpStatus.OK).body(response);

@@ -1,5 +1,6 @@
 package com.coditas.learninganddevelopementservice.exception;
 
+import com.coditas.learninganddevelopementservice.entity.Course;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -19,6 +20,17 @@ public class GlobalExceptionHandler {
         error.setTimestamp(LocalDateTime.now());
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
+    @ExceptionHandler(CourseNotCompleteException.class)
+    public ResponseEntity<ErrorResponse> exceptionHandlerCourseNotCompleted(CourseNotCompleteException e){
+
+        ErrorResponse error = new ErrorResponse();
+        error.setStatus(HttpStatus.NOT_ACCEPTABLE.value());
+        error.setMessage(e.getMessage());
+        error.setTimestamp(LocalDateTime.now());
+
+        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(error);
     }
 
 }

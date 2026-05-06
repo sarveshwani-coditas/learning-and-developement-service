@@ -1,5 +1,6 @@
 package com.coditas.learninganddevelopementservice.dto.assignment;
 
+import com.coditas.learninganddevelopementservice.dto.course.CourseResponse;
 import com.coditas.learninganddevelopementservice.entity.Course;
 import jakarta.persistence.Column;
 import jakarta.persistence.JoinColumn;
