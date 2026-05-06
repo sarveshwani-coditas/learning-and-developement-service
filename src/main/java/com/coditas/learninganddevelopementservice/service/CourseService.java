@@ -4,6 +4,7 @@ import com.coditas.learninganddevelopementservice.dto.course.CourseRequest;
 import com.coditas.learninganddevelopementservice.dto.course.CourseResponse;
 import com.coditas.learninganddevelopementservice.entity.Course;
 import com.coditas.learninganddevelopementservice.entity.Enrollment;
+import com.coditas.learninganddevelopementservice.exception.ResourceNotFoundException;
 import com.coditas.learninganddevelopementservice.mapper.CourseMapper;
 import com.coditas.learninganddevelopementservice.repository.CourseRepository;
 import com.coditas.learninganddevelopementservice.repository.EnrollmentRepository;
@@ -34,7 +35,7 @@ public class CourseService {
 
     public CourseResponse findCourseById(long id) {
         Course course = courseRepository.findById(id).orElseThrow(() ->
-                new RuntimeException("course does not exist for id "+id)
+                new ResourceNotFoundException("course not found")
         );
         return courseMapper.toCourseResponse(course);
     }

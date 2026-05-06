@@ -4,6 +4,7 @@ import com.coditas.learninganddevelopementservice.dto.assignment.AssignmentReque
 import com.coditas.learninganddevelopementservice.dto.assignment.AssignmentResponse;
 import com.coditas.learninganddevelopementservice.entity.Assignment;
 import com.coditas.learninganddevelopementservice.entity.Course;
+import com.coditas.learninganddevelopementservice.exception.ResourceNotFoundException;
 import com.coditas.learninganddevelopementservice.mapper.AssignmentMapper;
 import com.coditas.learninganddevelopementservice.repository.AssignmentRepository;
 import com.coditas.learninganddevelopementservice.repository.CourseRepository;
@@ -26,10 +27,15 @@ public class AssignmentService {
         Assignment assignment = assignmentMapper.toEntity(assignmentRequest);
 
         Course course = courseRepository.findById(id).orElseThrow(() ->
-                new RuntimeException("CourseNot found")
+                new ResourceNotFoundException("Course Not found")
         );
         assignment.setCourse(course);
         Assignment savedAssignment = assignmentRepository.save(assignment);
         return assignmentMapper.toDTO(savedAssignment);
+    }
+
+    public AssignmentResponse getAssignment(long empId, long courseId) {
+
+
     }
 }

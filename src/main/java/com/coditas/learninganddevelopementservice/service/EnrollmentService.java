@@ -5,6 +5,7 @@ import com.coditas.learninganddevelopementservice.dto.enrollment.EnrollmentRespo
 import com.coditas.learninganddevelopementservice.entity.Course;
 import com.coditas.learninganddevelopementservice.entity.Employee;
 import com.coditas.learninganddevelopementservice.entity.Enrollment;
+import com.coditas.learninganddevelopementservice.exception.ResourceNotFoundException;
 import com.coditas.learninganddevelopementservice.mapper.EnrollmentMapper;
 import com.coditas.learninganddevelopementservice.repository.CourseRepository;
 import com.coditas.learninganddevelopementservice.repository.EmployeeRepository;
@@ -30,11 +31,11 @@ public class EnrollmentService {
 
     public EnrollmentResponse enroll(EnrollmentRequest enrollmentRequest) {
         Employee employee = employeeRepository.findById(enrollmentRequest.getEmployeeId()).orElseThrow(
-                () -> new RuntimeException("Not found")
+                () -> new ResourceNotFoundException("Employee not found")
         );
 
         Course course = courseRepository.findById(enrollmentRequest.getCourseId()).orElseThrow(
-                () -> new RuntimeException("Not found")
+                () -> new ResourceNotFoundException("course not found")
         );
 
         Enrollment enrollment = enrollmentMapper.toEntity(enrollmentRequest);

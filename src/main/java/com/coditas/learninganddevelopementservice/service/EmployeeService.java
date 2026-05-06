@@ -5,6 +5,7 @@ import com.coditas.learninganddevelopementservice.dto.employees.EmployeeResponse
 import com.coditas.learninganddevelopementservice.entity.Employee;
 import com.coditas.learninganddevelopementservice.entity.User;
 import com.coditas.learninganddevelopementservice.enums.Status;
+import com.coditas.learninganddevelopementservice.exception.ResourceNotFoundException;
 import com.coditas.learninganddevelopementservice.mapper.EmployeeMapper;
 import com.coditas.learninganddevelopementservice.mapper.UserMapper;
 import com.coditas.learninganddevelopementservice.repository.EmployeeRepository;
@@ -27,7 +28,6 @@ public class EmployeeService {
         this.employeeMapper=employeeMapper;
         this.userMapper=userMapper;
         this.userRepository=userRepository;
-
     }
 
     public EmployeeResponse registerEmployee(EmployeeRequest employeeRequest) {
@@ -41,7 +41,7 @@ public class EmployeeService {
 
     public EmployeeResponse findEmployeeById(long id) {
         Employee employee = employeeRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("")
+                () -> new ResourceNotFoundException("Employee Not found")
         );
         return employeeMapper.toDTO(employee);
     }
