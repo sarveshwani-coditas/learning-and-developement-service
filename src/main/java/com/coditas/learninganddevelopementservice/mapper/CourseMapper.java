@@ -9,7 +9,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface CourseMapper {
-    Course toCourse(CourseRequest courseRequest);
+    Course toEntity(CourseRequest courseRequest);
 
     CourseResponse toCourseResponse(Course course);
 

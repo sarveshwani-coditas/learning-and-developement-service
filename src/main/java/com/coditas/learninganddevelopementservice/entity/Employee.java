@@ -30,7 +30,7 @@ public class Employee {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "employee")
+    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
     private List<Enrollment> enrollment;
 
     @OneToMany(mappedBy = "employee")

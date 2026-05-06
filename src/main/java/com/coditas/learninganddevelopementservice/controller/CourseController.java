@@ -38,4 +38,10 @@ public class CourseController {
         return ResponseEntity.status(HttpStatus.OK).body(courseResponse);
     }
 
+    @GetMapping("/employees/{id}")
+    public ResponseEntity<List<CourseResponse>> getAllCourseByEmployeeId(@PathVariable long id){
+        List<CourseResponse> courseResponse = courseService.findAllCourseByEmployeeId(id);
+        return ResponseEntity.status(HttpStatus.OK).body(courseResponse);
+    }
+
 }

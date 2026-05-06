@@ -4,6 +4,7 @@ import com.coditas.learninganddevelopementservice.dto.employees.EmployeeRequest;
 import com.coditas.learninganddevelopementservice.dto.employees.EmployeeResponse;
 import com.coditas.learninganddevelopementservice.entity.Employee;
 import com.coditas.learninganddevelopementservice.entity.User;
+import com.coditas.learninganddevelopementservice.enums.Status;
 import com.coditas.learninganddevelopementservice.mapper.EmployeeMapper;
 import com.coditas.learninganddevelopementservice.mapper.UserMapper;
 import com.coditas.learninganddevelopementservice.repository.EmployeeRepository;
@@ -11,6 +12,7 @@ import com.coditas.learninganddevelopementservice.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 @Service
 public class EmployeeService {
@@ -46,6 +48,25 @@ public class EmployeeService {
 
     public List<EmployeeResponse> findAllEmployee() {
         List<Employee> employees = employeeRepository.findAll();
+        return employeeMapper.toDTOList(employees);
+    }
+
+    public List<EmployeeResponse> findEmployeeByCourseId(long id) {
+        List<Employee> employees = employeeRepository.findEmployeeByCourseId(id);
+
+        return employeeMapper.toDTOList(employees);
+    }
+
+    public List<EmployeeResponse> getEmployees(Status status, Boolean doingCourse) {
+
+        List<Employee> employees = new ArrayList<>();
+
+        if(status==Status.BENCHED && Boolean.TRUE.equals(doingCourse)){
+            employees = employeeRepository.findBenchedEmployeesDoingCourse(status);
+        }
+        else if(status==Status.BENCHED && Boolean.FALSE.equals(doingCourse)){
+            employees = employeeRepository.findBenchedEmployeesNotDoingCourse(status);
+        }
         return employeeMapper.toDTOList(employees);
     }
 }

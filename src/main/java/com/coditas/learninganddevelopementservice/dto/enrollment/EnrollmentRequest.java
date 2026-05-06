@@ -5,6 +5,7 @@ import com.coditas.learninganddevelopementservice.entity.Employee;
 import com.coditas.learninganddevelopementservice.enums.EnrollmentStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,13 +17,13 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class EnrollmentRequest {
 
-    @NotBlank
-    private Integer employee_id;
+    @NotNull
+    private Long employeeId;
 
-    @NotBlank
-    private Integer course_id;
+    @NotNull
+    private Long courseId;
 
-    @NotBlank
+    @NotNull
     private EnrollmentStatus status;
 
     private LocalDate deadline;
