@@ -5,13 +5,22 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,4 +40,29 @@ public class User {
     @Column(name = "role")
     private Role role;
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        return List.of();
+        return Collections.singleton(new SimpleGrantedAuthority("ROLE_"+role));
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
